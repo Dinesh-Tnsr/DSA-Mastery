@@ -27,6 +27,32 @@ struct treenode* insertNode(struct treenode* root,int new_value){
     }
     return root;
 }
+
+void inOrderTraversal(struct treenode* root){
+    if(root==NULL){ return;}
+    else{
+        inOrderTraversal(root->left);
+        printf("%d ",root->data);
+        inOrderTraversal(root->right);
+    }
+}
+
+void preOrderTraversal(struct treenode* root){
+    if(root==NULL){ return;}
+    else{
+        printf("%d ",root->data);
+        preOrderTraversal(root->left);
+        preOrderTraversal(root->right);
+    }
+}
+void postOrderTraversal(struct treenode* root){
+    if(root==NULL){ return;}
+    else{
+        postOrderTraversal(root->left);
+        postOrderTraversal(root->right);
+        printf("%d ",root->data);
+    }
+}
 int main(){
     struct treenode* root=insertNode(NULL,59);
     root=insertNode(root,67);
@@ -36,4 +62,12 @@ int main(){
     printf("%d\n",root->data);
     printf("%d\n",root->left->data);
     printf("%d",root->right->data);
+    printf("\n");
+    inOrderTraversal(root);
+    printf("\n");
+    preOrderTraversal(root);
+    printf("\n");
+    postOrderTraversal(root);
+    printf("\n");
+    return 0;
 }
