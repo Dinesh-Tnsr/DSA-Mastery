@@ -44,7 +44,7 @@ int main(){
     head=enqueue(50);
     head=enqueue(60);
     head=enqueue(70);
-    printf("Aftrt enqueue\n");
+    printf("After enqueue\n");
     display(head);
     head=dequeue();
     printf("After dequeue\n");
