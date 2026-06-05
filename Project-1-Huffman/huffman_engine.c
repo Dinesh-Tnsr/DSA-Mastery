@@ -47,8 +47,8 @@ int main(){
         }
     }
 
-    for(int i=0;i<=size;i++){
-        for(int j=0;j<=size-1-i;j++){
+    for(int i=0;i<size;i++){
+        for(int j=0;j<size-1-i;j++){
             if(staging[j]->frq > staging[ j+1]->frq){
                 struct HuffmanNode* temp = staging[j];
                 staging[j] = staging[j+1];
@@ -56,6 +56,44 @@ int main(){
             }
         }
     }
+    printf("\nsorted staging array data and frequency:\n");
+    for(int i=0;i<size;i++){
+
+        printf("%c : %d\n",staging[i]->data,staging[i]->frq);
+    }
+
+    while(size > 1){
+        struct HuffmanNode* left = staging[0];
+        struct HuffmanNode* right = staging[1];
+
+        struct HuffmanNode* parent = createnode('$',left->frq+right->frq);
+
+        parent->left = left;
+        parent->right = right;
+
+        staging[0] = parent;
+
+        for(int i=1;i<size-1;i++){
+            staging[i]=staging[i+1];
+        }
+        
+        size--;
+
+         for(int i=0;i<size;i++){
+            for(int j=0;j<size-1-i;j++){
+                if(staging[j]->frq > staging[ j+1]->frq){
+                struct HuffmanNode* temp = staging[j];
+                staging[j] = staging[j+1];
+                staging[j+1] = temp;
+                }
+            }
+        }
+        
+        
+    }
+
+    struct HuffmanNode* root = staging[0];
+    printf("Final tree root frequency: %d", root->frq);
 
     return 0;
 }
