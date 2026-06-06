@@ -38,6 +38,14 @@ void  storeCodes(struct HuffmanNode* root, int A[], int top,int look_up[][100],i
         code_length[char_index] = top;
     }
 }
+
+void FreeTree( struct HuffmanNode* root){
+    if(root == NULL){return;}
+
+    FreeTree(root->left);
+    FreeTree(root->right);
+    free(root);
+}
 int main(){
     char text[] = "engineering is about execution";
     int freq[256] = {0};
@@ -130,5 +138,6 @@ int main(){
         k++;
     }
 
+    FreeTree(root);
     return 0;
 }
