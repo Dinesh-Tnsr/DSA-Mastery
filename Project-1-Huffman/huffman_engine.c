@@ -18,6 +18,30 @@ struct HuffmanNode* createnode(char value,int freq){
 
     return root;
 }
+
+void printArray(int A[],int n){
+    for(int i=0;i<n;i++){
+        printf("%d ",A[i]);
+    }
+    printf("\n");
+}
+
+void  printCodes(struct HuffmanNode* root, int A[], int top){
+    if( root->left!=NULL){
+        A[top]=0;
+        printCodes(root->left,A,top+1);
+    }
+
+    if(root->right!=NULL){
+        A[top]= 1;
+        printCodes(root->right,A,top+1);
+    }
+
+    if(root->left == NULL && root->right == NULL){
+        printf("'%c': ",root->data);
+        printArray(A,top);
+    }
+}
 int main(){
     char text[] = "engineering is about execution";
     int freq[256] = {0};
@@ -94,6 +118,11 @@ int main(){
 
     struct HuffmanNode* root = staging[0];
     printf("Final tree root frequency: %d", root->frq);
+
+    int A[100];
+    int top=0;
+    printf("\nHuffman Binary codes:\n");
+    printCodes(root,A,top);
 
     return 0;
 }
