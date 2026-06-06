@@ -19,27 +19,23 @@ struct HuffmanNode* createnode(char value,int freq){
     return root;
 }
 
-void printArray(int A[],int n){
-    for(int i=0;i<n;i++){
-        printf("%d ",A[i]);
-    }
-    printf("\n");
-}
-
-void  printCodes(struct HuffmanNode* root, int A[], int top){
+void  storeCodes(struct HuffmanNode* root, int A[], int top,int look_up[][100],int code_length[]){
     if( root->left!=NULL){
         A[top]=0;
-        printCodes(root->left,A,top+1);
+        storeCodes(root->left,A,top+1,look_up,code_length);
     }
 
     if(root->right!=NULL){
         A[top]= 1;
-        printCodes(root->right,A,top+1);
+        storeCodes(root->right,A,top+1,look_up,code_length);
     }
 
     if(root->left == NULL && root->right == NULL){
-        printf("'%c': ",root->data);
-        printArray(A,top);
+        int char_index = root->data;
+        for(int i=0;i<top;i++){
+            look_up[char_index][i] = A[i];
+        }
+        code_length[char_index] = top;
     }
 }
 int main(){
@@ -121,8 +117,18 @@ int main(){
 
     int A[100];
     int top=0;
+    int lookup[256][100];
+    int code_length[256] = {0};
     printf("\nHuffman Binary codes:\n");
-    printCodes(root,A,top);
+    storeCodes(root,A,top,lookup,code_length);
+    int k=0;
+    while(text[k]!='\0'){
+        int ch = text[k];
+        for(int j=0;j<code_length[ch];j++){
+            printf("%d",lookup[ch][j]);
+        }
+        k++;
+    }
 
     return 0;
 }
